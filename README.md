@@ -2,7 +2,9 @@
 download docker image from dockerHub or private registry without dockerCLI
 
 Usage:
+
 ./nodocker pull busybox
+
 ./nodocker pull localhost:5000/busybox  --registry-user username --registry-password password
 
 

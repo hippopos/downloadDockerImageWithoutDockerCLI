@@ -14,6 +14,6 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 download_images
-nodocker
+nodocker*
 .idea
 tmp.json
