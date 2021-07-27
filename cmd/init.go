@@ -13,8 +13,7 @@ var iFile string
 
 var rootCmd = &cobra.Command{
 	Use:     fmt.Sprintf("%s [subcommand]", os.Args[0]),
-	Short:   "装机小能手",
-	Long:    `koictl装机小能手: 可以快速安装 kubernetes和mongo(PSA) 集群,以及surpass opsapps`,
+	Short:   "download docker images",
 	Version: "0.1",
 	// Run: func(cmd *cobra.Command, args []string) {
 	//      v, _ := cmd.PersistentFlags().GetBool("version")
