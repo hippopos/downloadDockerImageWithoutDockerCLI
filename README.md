@@ -1,12 +1,15 @@
 # downloadDockerImageWithoutDockerCLI
-download docker image from dockerHub or private registry without dockerCLI
+
+download docker image from dockerHub or private registry without dockerCLI,
+Support Linux/Macos/Windows
 
 Usage:
 
+```shell script
 ./nodocker pull busybox
 
 ./nodocker pull localhost:5000/busybox  --registry-user username --registry-password password
-
+```
 
 Build from src
 ```shell script
