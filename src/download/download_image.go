@@ -47,7 +47,7 @@ func downloadImage(images []string) {
 			rs.Add(repoTag.domain, r)
 		}
 
-		tarFile := fmt.Sprintf("%s_%s.tar.gz", path.Join(saveDir, strings.Replace(repoTag.repo, "/", "_", 1)), repoTag.tag)
+		tarFile := fmt.Sprintf("%s.tar.gz", path.Join(saveDir, strings.ReplaceAll(repoTag.imageRepoTags, "/", "_")))
 		if _, ok := os.Stat(tarFile); ok == nil {
 			log.Log.Info(tarFile, " is exist. skip download.")
 			return
@@ -109,14 +109,14 @@ func createManifest(tempDir, confFile, repoTag string, layerFiles []string) (str
 	defer out.Close()
 
 	//tag := getTag(repoTag)
-	_, repo, tag := decomposeRepoTag(repoTag)
-	if tag == "" {
-		tag = "latest"
+	_, _, tag := decomposeRepoTag(repoTag)
+	if tag == "latest" && !strings.HasSuffix(repoTag, "latest") {
+		repoTag = strings.Join([]string{repoTag, tag}, ":")
 	}
 	m := image.Manifest{
 		Config:   confFile,
 		Layers:   layerFiles,
-		RepoTags: []string{strings.Join([]string{repo, tag}, ":")}, //更改镜像repo
+		RepoTags: []string{repoTag}, //更改镜像repo
 	}
 	manifestArray = append(manifestArray, m)
 	mJSON, err := json.Marshal(manifestArray)

@@ -25,19 +25,9 @@ func newImageRepo(imageRepoTags string) (image imageRepo) {
 	image.imageRepoTags = imageRepoTags
 	var domain, repo, tag string
 
-	domain,repo,tag = decomposeRepoTag(imageRepoTags)
+	domain, repo, tag = decomposeRepoTag(imageRepoTags)
 	//dockerhub
-	if domain == ""{
-		domain = "registry-1.docker.io"
-		//append library
-		if !strings.Contains(repo, "/") {
-			repo = strings.Join([]string{"library", repo}, "/")
-		}
-	}
-	//set latest
-	if tag == ""{
-		tag = "latest"
-	}
+
 
 	image.tag = tag
 	image.repo = repo
@@ -102,7 +92,7 @@ func decomposeRepoTag(repoTag string) (domain, repo, tag string) {
 	} else {
 		//缺省 :
 		domain = strings.Split(repoTag, "/")[0]
-		if !strings.Contains(domain, ".")&& domain != "localhost" && !strings.Contains(domain, ":") {
+		if !strings.Contains(domain, ".") && domain != "localhost" && !strings.Contains(domain, ":") {
 			//缺省domain
 			domain = ""
 			repo = repoTag
@@ -120,6 +110,16 @@ func decomposeRepoTag(repoTag string) (domain, repo, tag string) {
 		}
 		tag = ""
 	}
-
+	if domain == "" {
+		domain = "registry-1.docker.io"
+		//append library
+		if !strings.Contains(repo, "/") {
+			repo = strings.Join([]string{"library", repo}, "/")
+		}
+	}
+	//set latest
+	if tag == "" {
+		tag = "latest"
+	}
 	return domain, repo, tag
 }
